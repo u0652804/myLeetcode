@@ -44,6 +44,11 @@ Code :
 
         class Solution(object):
             def meetingRoom2(self, intervals):
+                """
+                  :type intervals: List[List[int]]
+                  :rtype: int
+                """
+                
                 if len(intervals) <= 1: return len(intervals)
 
                 # s_tc : set time change 
