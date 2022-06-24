@@ -75,4 +75,19 @@ Code :
         print(2, m.meetingRoom2([[0,30],[5,10],[15,20]]))
         print(1, m.meetingRoom2([[7,10],[2,4]]))
         print(2, m.meetingRoom2([[7,10],[2,8]]))
-        print(7, m.meetingRoom2([[7,10],[2,8],[3,8],[4,8],[5,8],[6,8],[2,8]]))        
+        print(7, m.meetingRoom2([[7,10],[2,8],[3,8],[4,8],[5,8],[6,8],[2,8]]))    
+        
+        # sol2 
+        class Solution(object):
+            def meetingRoom2(self, intervals):
+                if len(intervals) <= 1: return len(intervals)
+
+                rst = 1
+                for it in intervals:
+                    for v in it:
+                        cnt = 0
+                        for e in intervals:
+                            if v <= e[1] and v >= e[0]: 
+                                cnt += 1
+                        rst = max(rst, cnt) 
+                return rst   
