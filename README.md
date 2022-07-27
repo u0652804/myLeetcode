@@ -7,7 +7,7 @@
           """
           :type nums: List[int]
           :rtype: int
-          549
+          
           """
           if len(nums) > 2:
               if nums[0] > len(nums) - 1: 
@@ -91,3 +91,55 @@ Code :
                                 cnt += 1
                         rst = max(rst, cnt) 
                 return rst   
+
+## 694. Number of Distinct Islands
+
+        class Solution(object):
+            mask = [[-1, 0], [0, 1], [0, -1], [1, 0]]
+            isl = ""
+
+            def nodi(self, grid):
+                s = set()
+                isl = ""
+                for i in range(0, len(grid)):
+                    for j in range(0, len(grid[i])):
+                        if grid[i][j] == "1":
+                            isl = [""]
+                            self.bt(i, j, grid, isl, 0, 0)
+                            s.add(isl[0])
+
+                return len(s)
+
+            '''
+                isl : one of island model
+                d : deep of bt call numbers
+                mi : index of mask
+            '''
+            def bt(self, i, j, grid, isl, d, mi):
+                if i < 0 or j < 0 or i >= len(grid) or j >= len(grid[0]):
+                    return 
+                if grid[i][j] != "1":
+                    return
+
+                grid[i][j] = "0"
+                isl[0] = isl[0] + str(d) + str(mi)
+                for ei in range(0, len(self.mask)):
+                    self.bt(i + self.mask[ei][0], j + self.mask[ei][1], grid, isl, d+1, ei)
+
+        # test case
+        m = Solution()
+        grid1 = [
+          ["1","1","0","0","0"],
+          ["1","1","0","0","0"],
+          ["0","0","1","0","0"],
+          ["0","0","0","1","1"]
+        ]
+        grid2 = [
+          ["1","1","0","0","0"],
+          ["0","0","0","0","0"],
+          ["0","0","1","0","0"],
+          ["0","0","0","1","1"]
+        ]
+
+        print(3, m.nodi(grid1)) 
+        print(2, m.nodi(grid2)) 
